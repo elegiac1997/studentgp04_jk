@@ -29,10 +29,16 @@
                 <span>
                       班级创建时间：<fmt:formatDate value="${clazList.create_time}" pattern="yyyy-MM-dd"/>
                 </span><br>
-                <a href="${pageContext.request.contextPath}/studentlist?claz_id=${clazList.id}">查询班级学生</a>
+                <shiro:hasRole name="teacher">
+                    <a href="${pageContext.request.contextPath}/studentlist?claz_id=${clazList.id}">查询班级学生</a>
+
+
 <%--                href="${pageContext.request.contextPath}/studentlist?claz_id=${clazList.claz_id}"--%>
                 <a href="${pageContext.request.contextPath}/insertclaz.jsp">添加班级</a>
+
+                </shiro:hasRole>
             </li>
+
 
 
         </c:forEach>

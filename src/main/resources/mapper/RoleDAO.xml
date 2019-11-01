@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  dtd:docuemtn type definition  为当前提供约束
+     ：标签   属性   层级    顺序
+  Mapper文件，映射文件，替换DAO实现类
+-->
+<mapper namespace="com.jk.dao.RoleDAO">
+    <!-- 当前 namespace中所有的查询，查询结构都会被二级缓存收纳 -->
+    <!--<cache type="org.apache.ibatis.cache.impl.PerpetualCache"/>-->
+    <!-- new MyCache("com.qianfeng.dao.UserDAO") -->
+    <!--    <cache type="com.qf.cache.MyCache"/>-->
+
+
+    <select id="selectAllRoleByUsername" resultType="java.lang.String">
+        SELECT role_jk.rolename
+        FROM user_jk
+        JOIN user_role_jk
+        ON user_jk.id = user_role_jk.user_id
+        JOIN role_jk
+        ON user_role_jk.role_id = role_jk.id
+        WHERE user_jk.username = #{username}
+    </select>
+
+
+</mapper>

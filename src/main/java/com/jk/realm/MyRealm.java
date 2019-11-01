@@ -3,6 +3,7 @@ package com.jk.realm;
 import com.jk.pojo.User;
 //import com.jk.service.PermissionService;
 //import com.jk.service.RoleService;
+import com.jk.service.RoleService;
 import com.jk.service.UserService;
 import lombok.Setter;
 import org.apache.shiro.authc.AuthenticationException;
@@ -23,7 +24,7 @@ public class MyRealm extends AuthorizingRealm {
 //    private UserService userService;
 
     private UserService userService;
-//    private RoleService roleService;
+    private RoleService roleService;
 //    private PermissionService permissionService;
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -33,17 +34,19 @@ public class MyRealm extends AuthorizingRealm {
         String username = (String)principals.getPrimaryPrincipal();
         // 查询当前用户的所有 权限信息： RoleService: public List<String:RoleName> queryAllRolesByUsername(String username)
         //                          PermissionService: public List<String:PermissionStr> queryAllPermissionsByUsername(String username)
-//        RoleService roleService = ContextLoader.getCurrentWebApplicationContext().getBean("roleServiceImpl", RoleService.class);
+        RoleService roleService = ContextLoader.getCurrentWebApplicationContext().getBean("roleServiceImpl", RoleService.class);
 //        PermissionService permissionService = ContextLoader.getCurrentWebApplicationContext().getBean("permissionServiceImpl", PermissionService.class);
 //         //查询当前用户的权限信息
-//        Set<String> roles = roleService.selectRoleByUsername(username);
+        System.out.println("------"+username);
+        System.out.println(roleService.selectAllRoleByUsername(username));
+        Set<String> roles = roleService.selectAllRoleByUsername(username);
 //        Set<String> perms = permissionService.selectPermissionByUsername(username);
 //        // 将查询出的信息 封装
-//        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo(roles);
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo(roles);
 //        simpleAuthorizationInfo.setStringPermissions(perms);
 //        System.out.println("------角色权限-------"+simpleAuthorizationInfo);
-//        return simpleAuthorizationInfo;
-        return null;
+        return simpleAuthorizationInfo;
+//        return null;
     }
 
     @Override

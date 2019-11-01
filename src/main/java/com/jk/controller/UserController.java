@@ -10,6 +10,7 @@ import com.jk.service.UserService;
 import com.sun.org.apache.regexp.internal.RE;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,10 @@ public class UserController {
 
     Map<String,String> map = new HashMap<String,String>();
 
+    /**
+     * 学生注册
+     * JK
+     **/
     @PostMapping("/register_student")
     public String register(User user){
         System.out.println(user);
@@ -42,6 +47,10 @@ public class UserController {
         return "login";
     }
 
+    /**
+     * 添加学生
+     * JK
+     **/
     @PostMapping("/register_student2")
     public String register2(User user){
         System.out.println(user);
@@ -51,6 +60,10 @@ public class UserController {
         return "forward:studentlist";
     }
 
+    /**
+     * 教师注册
+     * JK
+     **/
     @PostMapping("/register_teacher")
     public String register_teacher(User user){
         System.out.println(user);
@@ -60,14 +73,23 @@ public class UserController {
         return "login";
     }
 
+    /**
+     * 登录
+     * JK
+     **/
     @RequestMapping("/login")
     public String login(User user){
         System.out.println("登录");
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
         SecurityUtils.getSubject().login(token);
+        System.out.println(user.getUsername()+"----------");
         return "forward:clazlist";
     }
 
+    /**
+     * 验证码校验
+     * JK
+     **/
     @RequestMapping("/checkcode")
     @ResponseBody
     public Map<String,String> captcha(String captchainput, HttpSession session){
@@ -85,6 +107,11 @@ public class UserController {
         return map;
     }
 
+
+    /**
+     * 班级列表查询
+     * JK
+     **/
     @RequestMapping("/clazlist")
     public String selectClazList(HttpServletRequest request){
         String _pageNum = request.getParameter("pageNum");
@@ -115,7 +142,11 @@ public class UserController {
         return "clazlist";
     }
 
-
+    /**
+     * 指定班级的学生列表查询
+     * JK
+     **/
+    @RequiresRoles(value = "teacher")
     @RequestMapping("/studentlist")
     public String selectStudentList(Integer claz_id,HttpServletRequest request){
         String _pageNum = request.getParameter("pageNum");
@@ -145,7 +176,11 @@ public class UserController {
         request.setAttribute("studentList",userList);
         return "studentlist";
     }
-
+   // @RequiresRoles(value = "teacher")
+    /**
+     * 添加学生带参跳转
+     * JK
+     **/
     @RequestMapping("/insertclaz")
     public String insertClaz(Claz claz){
         clazService.insertClaz(claz);
@@ -153,7 +188,10 @@ public class UserController {
         return "forward:clazlist";
     }
 
-
+    /**
+     * 添加班级
+     * JK
+     **/
     @RequestMapping("/insertintoclaz")
     public String insertIntoClaz(Integer claz_id,HttpServletRequest request){
         System.out.println(claz_id);
@@ -161,6 +199,10 @@ public class UserController {
         return "insertintoclaz";
     }
 
+    /**
+     * 修改学生信息前查询
+     * JK
+     **/
     @RequestMapping("/findbyusername")
     public String findOneUserByUsername(String username,HttpServletRequest request){
         User user = userService.findByUserName(username);
@@ -169,6 +211,10 @@ public class UserController {
         return "updateuser";
     }
 
+    /**
+     * 更改学生信息
+     * JK
+     **/
     @RequestMapping("/updateuser")
     public String updateUser(User user){
         System.out.println(user+"================");
