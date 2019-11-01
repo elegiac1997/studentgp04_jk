@@ -138,4 +138,11 @@ public class UserController {
         request.setAttribute("studentList",userList);
         return "studentlist";
     }
+
+    @RequestMapping("/insertclaz")
+    public String insertClaz(Claz claz){
+        clazService.insertClaz(claz);
+        System.out.println(claz);
+        return "forward:clazlist";
+    }
 }

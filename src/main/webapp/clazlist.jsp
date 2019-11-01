@@ -31,6 +31,7 @@
                 </span><br>
                 <a href="${pageContext.request.contextPath}/studentlist?claz_id=${clazList.id}">查询班级学生</a>
 <%--                href="${pageContext.request.contextPath}/studentlist?claz_id=${clazList.claz_id}"--%>
+                <a href="${pageContext.request.contextPath}/insertclaz.jsp">添加班级</a>
             </li>
 
 

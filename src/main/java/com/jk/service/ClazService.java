@@ -11,4 +11,5 @@ import java.util.List;
 public interface ClazService {
     List<Claz> selectAllClaz();
     List<User> selectUserByClaz_id(Integer claz_id);
+    Integer insertClaz(Claz claz);
 }
