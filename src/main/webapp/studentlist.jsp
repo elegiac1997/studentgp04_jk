@@ -35,7 +35,36 @@
                 <span>
                       班级ID：${studentList.claz_id}
                 </span><br>
+                <a href="${pageContext.request.contextPath}/insertintoclaz?claz_id=${studentList.claz_id}">添加学生</a>
+
             </li>
+
+            <c:if test="${sta.last}">
+                <div class="pagenation">
+                        <%--<div class="pagenation">--%>
+                    <c:if test="${page.hasPreviousPage}">
+                        <a href="${pageContext.request.contextPath}/studentlist?claz_id=${studentList.claz_id}&pageNum=${page.prePage}">上一页</a>
+                    </c:if>
+                    <c:if test="${! page.hasPreviousPage}">
+                        上一页
+                    </c:if>
+                    <a href="${pageContext.request.contextPath}/studentlist?claz_id=${studentList.claz_id}&pageNum=1" class="active">1</a>
+                    <a href="${pageContext.request.contextPath}/studentlist?claz_id=${studentList.claz_id}&pageNum=2">2</a>
+                    <a href="${pageContext.request.contextPath}/studentlist?claz_id=${studentList.claz_id}&pageNum=3">3</a>
+                    <a href="${pageContext.request.contextPath}/studentlist?claz_id=${studentList.claz_id}&pageNum=4">4</a>
+                    <a href="${pageContext.request.contextPath}/studentlist?claz_id=${studentList.claz_id}&pageNum=5">5</a>
+
+                    <c:if test="${page.hasNextPage}">
+                        <a href="${pageContext.request.contextPath}/studentlist?claz_id=${studentList.claz_id}&pageNum=${page.nextPage}">下一页></a>
+                    </c:if>
+                    <c:if test="${! page.hasNextPage}">下一页</c:if>
+
+                        <%--</div>--%>
+                </div>
+
+
+            </c:if>
+
 
 
         </c:forEach>
@@ -43,26 +72,6 @@
     </ul>
 
 </div>
-<div class="pagenation">
-    <%--<div class="pagenation">--%>
-        <c:if test="${page.hasPreviousPage}">
-            <a href="${pageContext.request.contextPath}/studentlist?claz_id=1&pageNum=${page.prePage}">上一页</a>
-        </c:if>
-        <c:if test="${! page.hasPreviousPage}">
-            上一页
-        </c:if>
-        <a href="${pageContext.request.contextPath}/studentlist?claz_id=1&pageNum=1" class="active">1</a>
-        <a href="${pageContext.request.contextPath}/studentlist?claz_id=1&pageNum=2">2</a>
-        <a href="${pageContext.request.contextPath}/studentlist?claz_id=1&pageNum=3">3</a>
-        <a href="${pageContext.request.contextPath}/studentlist?claz_id=1&pageNum=4">4</a>
-        <a href="${pageContext.request.contextPath}/studentlist?claz_id=1&pageNum=5">5</a>
 
-        <c:if test="${page.hasNextPage}">
-            <a href="${pageContext.request.contextPath}/studentlist?claz_id=1&pageNum=${page.nextPage}">下一页></a>
-        </c:if>
-        <c:if test="${! page.hasNextPage}">下一页</c:if>
-
-    <%--</div>--%>
-</div>
 </body>
 </html>

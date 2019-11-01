@@ -44,6 +44,15 @@ public class UserController {
         return "login";
     }
 
+    @PostMapping("/register_student2")
+    public String register2(User user){
+        System.out.println(user);
+        userService.insertUser(user);
+        User user1 = userService.findByUserName(user.getUsername());
+        userService.insertUserRole(user1.getId(),1);
+        return "forward:studentlist";
+    }
+
     @PostMapping("/register_teacher")
     public String register_teacher(User user){
         System.out.println(user);
@@ -144,5 +153,13 @@ public class UserController {
         clazService.insertClaz(claz);
         System.out.println(claz);
         return "forward:clazlist";
+    }
+
+
+    @RequestMapping("/insertintoclaz")
+    public String insertIntoClaz(Integer claz_id,HttpServletRequest request){
+        System.out.println(claz_id);
+        request.setAttribute("ClazId",claz_id);
+        return "insertintoclaz";
     }
 }
