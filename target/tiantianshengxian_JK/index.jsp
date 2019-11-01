@@ -10,5 +10,7 @@
 <a href="${pageContext.request.contextPath}/register_student.jsp">学生注册</a>
 <br>
 <a href="${pageContext.request.contextPath}/register_teacher.jsp">教师注册</a>
+<br>
+<a href="${pageContext.request.contextPath}/login.jsp">登录</a>
 </body>
 </html>

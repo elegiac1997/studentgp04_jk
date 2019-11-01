@@ -1,5 +1,6 @@
 package com.jk.test;
 
+import com.jk.dao.ClazDAO;
 import com.jk.dao.UserDAO;
 import com.jk.pojo.User;
 import org.junit.Test;
@@ -19,6 +20,8 @@ import java.util.Date;
 public class TestDAO {
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private ClazDAO clazDAO;
 
     @Test
     public void testdao(){
@@ -28,7 +31,8 @@ public class TestDAO {
 
         //System.out.println(userDAO.findByUserName("jiankun3"));
 
-        userDAO.insertUserRole(1,1);
+//        userDAO.insertUserRole(1,1);
+        System.out.println(clazDAO.selectAllClaz());
     }
 
 }

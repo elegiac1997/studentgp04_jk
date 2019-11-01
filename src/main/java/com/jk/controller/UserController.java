@@ -1,6 +1,11 @@
 package com.jk.controller;
 
+import com.alibaba.druid.util.StringUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jk.pojo.Claz;
 import com.jk.pojo.User;
+import com.jk.service.ClazService;
 import com.jk.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -11,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +30,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ClazService clazService;
 
     Map<String,String> map = new HashMap<String,String>();
 
@@ -32,7 +41,7 @@ public class UserController {
         userService.insertUser(user);
         User user1 = userService.findByUserName(user.getUsername());
         userService.insertUserRole(user1.getId(),1);
-        return "index";
+        return "login";
     }
 
     @PostMapping("/register_teacher")
@@ -41,7 +50,7 @@ public class UserController {
         userService.insertUser(user);
         User user1 = userService.findByUserName(user.getUsername());
         userService.insertUserRole(user1.getId(),2);
-        return "index";
+        return "login";
     }
 
     @RequestMapping("/login")
@@ -49,7 +58,7 @@ public class UserController {
         System.out.println("登录");
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
         SecurityUtils.getSubject().login(token);
-        return "index";
+        return "forward:clazlist";
     }
 
     @RequestMapping("/checkcode")
@@ -67,5 +76,35 @@ public class UserController {
             map.put("captcha_check","0");
         }
         return map;
+    }
+
+    @RequestMapping("/clazlist")
+    public String selectClazList(HttpServletRequest request){
+        String _pageNum = request.getParameter("pageNum");
+        String _pageSize = request.getParameter("pageSize");
+        int pageNum = 1;
+        int pageSize = 5;
+
+        if (!StringUtils.isEmpty(_pageNum)){
+            pageNum = Integer.parseInt(_pageNum);
+            if (pageNum<1){
+                pageNum = 1;
+            }
+        }
+        if (!StringUtils.isEmpty(_pageSize)){
+            pageSize = Integer.parseInt(_pageSize);
+            if (pageSize<1){
+                pageSize = 5;
+            }
+        }
+
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<Claz> clazs = clazService.selectAllClaz();
+
+        PageInfo<Claz> pageInfo = new PageInfo<Claz>(clazs);
+        request.setAttribute("page",pageInfo);
+        request.setAttribute("clazList",clazs);
+        return "clazlist";
     }
 }
