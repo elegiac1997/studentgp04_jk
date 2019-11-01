@@ -7,14 +7,12 @@ import com.jk.pojo.Claz;
 import com.jk.pojo.User;
 import com.jk.service.ClazService;
 import com.jk.service.UserService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -161,5 +159,20 @@ public class UserController {
         System.out.println(claz_id);
         request.setAttribute("ClazId",claz_id);
         return "insertintoclaz";
+    }
+
+    @RequestMapping("/findbyusername")
+    public String findOneUserByUsername(String username,HttpServletRequest request){
+        User user = userService.findByUserName(username);
+        System.out.println(user);
+        request.setAttribute("User",user);
+        return "updateuser";
+    }
+
+    @RequestMapping("/updateuser")
+    public String updateUser(User user){
+        System.out.println(user+"================");
+        userService.updateUser(user);
+        return "forward:clazlist";
     }
 }

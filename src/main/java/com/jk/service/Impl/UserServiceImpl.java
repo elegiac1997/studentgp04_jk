@@ -38,4 +38,9 @@ public class UserServiceImpl implements UserService {
     public Integer insertUserRole(Integer user_id, Integer role_id) {
         return userDAO.insertUserRole(user_id,role_id);
     }
+
+    @Override
+    public Integer updateUser(User user) {
+        return userDAO.updateUser(user);
+    }
 }

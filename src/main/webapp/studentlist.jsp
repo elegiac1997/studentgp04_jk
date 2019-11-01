@@ -36,6 +36,8 @@
                       班级ID：${studentList.claz_id}
                 </span><br>
                 <a href="${pageContext.request.contextPath}/insertintoclaz?claz_id=${studentList.claz_id}">添加学生</a>
+                <a href="${pageContext.request.contextPath}/findbyusername?username=${studentList.username}">修改学生信息</a>
+
 
             </li>
 

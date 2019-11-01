@@ -26,7 +26,7 @@ public class TestDAO {
 
     @Test
     public void testdao(){
-//        User user = new User(null,"jiankun3","123456","666666","男",new Date(),1122);
+        User user = new User(3,"jiankun3",null,null,"男",null,1122);
 //        userDAO.insertUser(user);
 
 
@@ -35,8 +35,9 @@ public class TestDAO {
 //        userDAO.insertUserRole(1,1);
         //System.out.println(clazDAO.selectAllClaz());
 //        System.out.println(clazDAO.selectUserByClaz_id(12));
-        Claz claz = new Claz(null,"15656",new Date());
-        clazDAO.insertClaz(claz);
+//        Claz claz = new Claz(null,"15656",new Date());
+//        clazDAO.insertClaz(claz);
+        userDAO.updateUser(user);
     }
 
 }

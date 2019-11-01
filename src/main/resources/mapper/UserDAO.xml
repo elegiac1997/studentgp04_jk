@@ -27,5 +27,10 @@
         insert  into `user_role_jk` (user_id,role_id)
         values (#{user_id},#{role_id})
     </insert>
+    <update id="updateUser">
+        update user_jk
+        set username=#{username},gender=#{gender},claz_id=#{claz_id}
+        where id = #{id}
+    </update>
 
 </mapper>
