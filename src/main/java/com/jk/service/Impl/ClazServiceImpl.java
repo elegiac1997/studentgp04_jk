@@ -2,6 +2,7 @@ package com.jk.service.Impl;
 
 import com.jk.dao.ClazDAO;
 import com.jk.pojo.Claz;
+import com.jk.pojo.User;
 import com.jk.service.ClazService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,10 @@ public class ClazServiceImpl implements ClazService {
     @Override
     public List<Claz> selectAllClaz() {
         return clazDAO.selectAllClaz();
+    }
+
+    @Override
+    public List<User> selectUserByClaz_id(Integer claz_id) {
+        return clazDAO.selectUserByClaz_id(claz_id);
     }
 }

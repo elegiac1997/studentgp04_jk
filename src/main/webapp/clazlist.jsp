@@ -9,6 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -26,9 +27,12 @@
                     班级名：    ${clazList.clazname}
                 </span><br>
                 <span>
-                      班级创建时间 : ${clazList.create_time}
+                      班级创建时间：<fmt:formatDate value="${clazList.create_time}" pattern="yyyy-MM-dd"/>
                 </span><br>
+                <a href="${pageContext.request.contextPath}/studentlist?claz_id=${clazList.id}">查询班级学生</a>
+<%--                href="${pageContext.request.contextPath}/studentlist?claz_id=${clazList.claz_id}"--%>
             </li>
+
 
         </c:forEach>
 

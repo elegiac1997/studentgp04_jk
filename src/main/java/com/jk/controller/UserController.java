@@ -107,4 +107,35 @@ public class UserController {
         request.setAttribute("clazList",clazs);
         return "clazlist";
     }
+
+
+    @RequestMapping("/studentlist")
+    public String selectStudentList(Integer claz_id,HttpServletRequest request){
+        String _pageNum = request.getParameter("pageNum");
+        String _pageSize = request.getParameter("pageSize");
+        int pageNum = 1;
+        int pageSize = 5;
+
+        if (!StringUtils.isEmpty(_pageNum)){
+            pageNum = Integer.parseInt(_pageNum);
+            if (pageNum<1){
+                pageNum = 1;
+            }
+        }
+        if (!StringUtils.isEmpty(_pageSize)){
+            pageSize = Integer.parseInt(_pageSize);
+            if (pageSize<1){
+                pageSize = 5;
+            }
+        }
+
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<User> userList = clazService.selectUserByClaz_id(claz_id);
+        PageInfo<User> pageInfo = new PageInfo<User>(userList);
+        System.out.println(userList);
+        request.setAttribute("page",pageInfo);
+        request.setAttribute("studentList",userList);
+        return "studentlist";
+    }
 }

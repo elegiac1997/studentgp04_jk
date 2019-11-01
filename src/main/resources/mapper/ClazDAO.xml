@@ -11,4 +11,13 @@
         select *
         from `claz_jk`
     </select>
+    <select id="selectUserByClaz_id" resultType="com.jk.pojo.User">
+        select *
+        from user_jk
+        where claz_id = #{claz_id}
+    </select>
+    <insert id="insertClaz">
+         insert  into `claz_jk` (clazname,create_time)
+        values (#{clazname},#{create_time})
+    </insert>
 </mapper>
