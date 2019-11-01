@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  dtd:docuemtn type definition  为当前提供约束
+     ：标签   属性   层级    顺序
+  Mapper文件，映射文件，替换DAO实现类
+-->
+<mapper namespace="com.jk.dao.UserDAO">
+    <!-- 当前 namespace中所有的查询，查询结构都会被二级缓存收纳 -->
+    <!--<cache type="org.apache.ibatis.cache.impl.PerpetualCache"/>-->
+    <!-- new MyCache("com.qianfeng.dao.UserDAO") -->
+    <!--    <cache type="com.qf.cache.MyCache"/>-->
+
+    <insert id="insertUser">
+        insert into `user_jk` (username,password,salt,gender,regist_time,claz_id)
+        values(#{username},#{password},#{salt},#{gender},#{regist_time},#{claz_id})
+    </insert>
+    <select id="findByUserName" resultType="User">
+        select *
+        from `user_jk`
+        where username=#{username}
+    </select>
+    <insert id="insertUserRole">
+        insert  into `user_role_jk` (user_id,role_id)
+        values (#{user_id},#{role_id})
+    </insert>
+
+</mapper>
